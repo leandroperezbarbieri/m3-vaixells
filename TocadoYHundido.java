@@ -1,9 +1,11 @@
 
+package PROJECTE_VAIXELLS;
+
 import java.util.Scanner;
 import java.util.Random;
-public class TocadoYHundido {
+public class main {
 	
-	public static void mostrar(char[][] mT) { //Omplirem el tauler amb punts.
+	public static void mostrar(char[][] mT) { //Mostrarem el tauler amb caracters.
 		int f,c;
 		
 		System.out.print(" ");
@@ -21,11 +23,14 @@ public class TocadoYHundido {
 		}
 		
 	}
-	public static void omplir(char[][] mT, char valor) { //Omplirem el tauler amb punts.
+	public static void omplir(char[][] mT, char valor, int filaUser, int colUser) { //Omplirem el tauler amb punts.
 		int f,c;
 		for(f=0; f<mT.length; f++) {
 			for(c=0; c<mT.length; c++) {
 				mT[f][c]=valor;
+				if(f==filaUser && c==colUser) {
+				mT[f][c]='x';
+				}
 			}
 		}
 	}
@@ -35,10 +40,17 @@ public class TocadoYHundido {
 		Random ran=new Random();
 		char [][] mTauler=new char[10][10];
 		int f,c;
-		omplir(mTauler,'·');
+		int userFila, userCol;
+		
+		System.out.println("Introdueix la fila: ");
+		userFila=teclat.nextInt();
+		
+		System.out.println("Introdueix la columna: ");
+		userCol=teclat.nextInt();
+		
+		omplir(mTauler,'·', userFila, userCol);
 		mostrar(mTauler);
 		teclat.close();
 	}
 
 }
-
