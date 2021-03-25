@@ -6,38 +6,6 @@ import java.util.Random;
 
 public class TOCAT {
 	
-	public static void mostrar(char[][] mT) { //Mostrarem el tauler amb caracters.
-		int f,c;
-		
-		System.out.print(" ");
-		for(f=0; f<mT.length; f++) { //Muestra los numeros de arriba
-			System.out.print(" ");
-			System.out.print(f);
-		}
-		System.out.println();
-		
-		for(f=0; f<mT.length; f++) {
-			System.out.print(f);
-			for(c=0; c<mT.length; c++) {
-				System.out.print(" " + mT[f][c]);
-			}
-			System.out.println();
-		}
-		
-	}
-
-	public static void omplir(char[][] mT, char valor, int filaUser, int colUser) { //Omplirem el tauler amb punts.
-		int f,c;
-		for(f=0; f<mT.length; f++) {
-			for(c=0; c<mT.length; c++) {
-				mT[f][c]=valor;
-				if(f==filaUser && c==colUser) {
-				mT[f][c]='x';
-				}
-			}
-		}
-	}
-	
 	public static void  omplirRandom (char vTauler [] [], int quantVaixell, int mida) {/*Funció per omplir vTauler de vaixells aleatòriament */
 		Random rnd = new Random();
 		int i,j,contPunts=0,posCol,posFil,k=0, direccio;
@@ -72,7 +40,7 @@ public class TOCAT {
 							vTauler[posFil] [posCol-1]='*';
 						}
 						for(i=0;i<mida;i++) {//escriure el vaixell
-							vTauler[posFil] [posCol+i]='x';
+							vTauler[posFil] [posCol+i]='X';
 							vTauler[posFil+1] [posCol+i]='*';//reserva l'espall  sota del vaixell
 						}
 						k++;
@@ -86,7 +54,7 @@ public class TOCAT {
 							vTauler[posFil] [posCol-1]='*';
 						}
 						for(i=0;i<mida;i++) {//escriure el vaixell
-							vTauler[posFil] [posCol+i]='x';
+							vTauler[posFil] [posCol+i]='X';
 							vTauler[posFil-1] [posCol+i]='*';//reserva l'espall  sobre  el vaixell
 						}
 						k++;
@@ -100,7 +68,7 @@ public class TOCAT {
 							vTauler[posFil] [posCol-1]='*';
 						}
 						for(i=0;i<mida;i++) {//escriure el vaixell
-							vTauler[posFil] [posCol+i]='x';
+							vTauler[posFil] [posCol+i]='X';
 							vTauler[posFil-1] [posCol+i]='*';//reserva l'espall sota i sobre  el vaixell
 							vTauler[posFil+1] [posCol+i]='*';
 						}
@@ -128,7 +96,7 @@ public class TOCAT {
 							vTauler[posFil-1] [posCol]='*';
 						}
 						for(i=0;i<mida;i++) {//escriure el vaixell
-							vTauler[posFil+i] [posCol]='x';
+							vTauler[posFil+i] [posCol]='X';
 							vTauler[posFil+i] [posCol+1]='*';//reserva l'espall  a la dreta del vaixell
 						}
 						k++;
@@ -142,7 +110,7 @@ public class TOCAT {
 							vTauler[posFil-1] [posCol]='*';
 						}
 						for(i=0;i<mida;i++) {//escriure el vaixell
-							vTauler[posFil+i] [posCol]='x';
+							vTauler[posFil+i] [posCol]='X';
 							vTauler[posFil+i] [posCol-1]='*';//reserva l'espall  a l'esquerra del vaixell
 						}
 						k++;
@@ -156,9 +124,10 @@ public class TOCAT {
 							vTauler[posFil-1] [posCol]='*';
 						}
 						for(i=0;i<mida;i++) {//escriure el vaixell
-							vTauler[posFil+i] [posCol]='x';
+							vTauler[posFil+i] [posCol]='X';
 							vTauler[posFil+i] [posCol+1]='*';//reserva l'espall  a amdos costats del vaixell
 							vTauler[posFil+i] [posCol-1]='*';
+							
 						}
 						k++;
 					}
@@ -166,42 +135,247 @@ public class TOCAT {
 				
 			}
 			
-		}	
+		}
+		
+			
+	}
+	public static void mostrar(char[][] Matriu) { //Mostrarem el tauler amb caracters.
+		int f,c;
+		
+		System.out.print(" ");
+		for(f=0; f<Matriu.length; f++) { //Mostra els número de index de dalt
+			System.out.print(" ");
+			System.out.print(f+1);
+		}
+		System.out.println();
+		for(f=0; f<Matriu.length; f++) {
+			System.out.print(f+1);
+			for(c=0; c<Matriu.length; c++) {
+				System.out.print(" " + Matriu[f][c]);
+			}
+			System.out.println();
+		}
+		
+	}
+	public static void omplirPunts(char[][] Matriu) { //Omplir matriu amb punts
+		int i,j;
+		for (i=0;i<Matriu.length;i++){//omplir la matriu amb punts
+			for (j=0;j<Matriu[i].length;j++){
+				Matriu[i] [j]='.';
+			}
+		}
 	}
 	public static void main(String[] args) {
 		/*Crear la matriu vTauler amb els vaixells de forma aleatoria */
 		
 		Scanner teclat = new Scanner(System.in);
 		Random rnd = new Random();
-		char [][] mTauler=new char[10][10];
-		int f,c;
-		int userFila, userCol;
-		int  i,j,mida,quantVaixell;
+		int  i,j,mida,quantVaixell,userFil,userCol,intents=0,enfonsats=0;
 		char [] [] vTauler=new char [10] [10];//matriu principal amb els vaixells
-		
-		for (i=0;i<vTauler.length;i++){//omplir la matriu amb punts
-			for (j=0;j<vTauler[i].length;j++){
-				vTauler[i] [j]='.';
-			}
-		}
+		char [][] vUsuari=new char[10][10];//tauler per mostrar a l'usuari
+		omplirPunts(vUsuari);//omplir les dos matrius amb punts
+		omplirPunts(vTauler);
 		omplirRandom(vTauler, 1,4);	/*1 vaixell de 4, 2 de 3, 3 de 2 i 4 d’1*/
 		omplirRandom(vTauler, 2,3);
 		omplirRandom(vTauler, 3,2);
 		omplirRandom(vTauler, 4,1);
 		
-		mostrar(vTauler);
-		System.out.println("---------------------");
-
-		System.out.println("Introdueix la fila: ");
-		userFila=teclat.nextInt();
+		mostrar(vTauler);//només per comprobar
 		
-		System.out.println("Introdueix la columna: ");
-		userCol=teclat.nextInt();
 		
-		omplir(vTauler,'·', userFila, userCol);
-		mostrar(vTauler);
 		
+		
+		System.out.println("----------------------");
+		while(intents!=25 || enfonsats!=10) {//itera fins a enfonsar tots els  vaixells o arribar a 25 intents
+			mostrar(vUsuari);//mostra la matriu d'usuari
+			System.out.println("Introdueix la fila: ");
+			userFil=teclat.nextInt()-1;
+			System.out.println("Introdueix la columna: ");
+			userCol=teclat.nextInt()-1;
+			//funcio comprobar, també caldra cambiar el tauler principal
+			if(-1<userFil && userFil<10 && -1<userCol && userCol<10) {//si ha donat una selecció valida, l'usuari introduïra valors de l'1 al 10
+				if(vTauler[userFil] [userCol]=='X') {//si hi ha una part de vaixell al lloc seleccionat
+					//posar una T en el lloc seleccionat per indicar que ja s'ha utilitzat
+					vTauler[userFil] [userCol]='T';
+					//posar la X en el tauler de l'usuari
+					vUsuari[userFil] [userCol]='X';
+					//si no hi ha cap part del vaixell al costat de la posició seleccionado vol dir que la enfonsat
+					//probare cada limit de la matriu per tal de no buscar una posició fora d'aquesta
+					if(userFil==0) {//per cadascun ddel 4 límits de matriu n'hi ha 3 diferents possibles posicions
+						if(userCol==0) {
+							if(vTauler[userFil+1] [userCol]=='X' || vTauler[userFil] [userCol+1]=='X') {
+								System.out.println("Vaixell tocat");
+								intents++;
+								enfonsats++;
+							}
+							else {
+								System.out.println("Vaixell enfonsat");
+								intents++;
+								
+							}
+						}
+						else if(userCol==9) {
+							if(vTauler[userFil+1] [userCol]=='X' || vTauler[userFil] [userCol-1]=='X') {
+								System.out.println("Vaixell tocat");
+								intents++;
+								enfonsats++;
+							}
+							else {
+								System.out.println("Vaixell enfonsat");
+								intents++;
+								
+							}
+						}
+						else{//si no és a una esquina del tauler
+							if(vTauler[userFil+1] [userCol]=='X' || vTauler[userFil] [userCol+1]=='X' || vTauler[userFil] [userCol-1]=='X') {
+								System.out.println("Vaixell tocat");
+								intents++;
+								enfonsats++;
+							}
+							else {
+								System.out.println("Vaixell enfonsat");
+								intents++;
+								
+							}
+						}
+					}
+					else if(userFil==9) {
+						if(userCol==0) {
+							if(vTauler[userFil-1] [userCol]=='X' || vTauler[userFil] [userCol+1]=='X') {
+								System.out.println("Vaixell tocat");
+								intents++;
+								enfonsats++;
+							}
+							else {
+								System.out.println("Vaixell enfonsat");
+								intents++;
+								
+							}
+						}
+						else if(userCol==9) {
+							if(vTauler[userFil+1] [userCol]=='X' || vTauler[userFil] [userCol-1]=='X') {
+								System.out.println("Vaixell tocat");
+								intents++;
+								enfonsats++;
+							}
+							else {
+								System.out.println("Vaixell enfonsat");
+								intents++;
+								
+							}
+						}
+						else{//si no és a una esquina del tauler
+							if(vTauler[userFil-1] [userCol]=='X' || vTauler[userFil] [userCol+1]=='X' || vTauler[userFil] [userCol-1]=='X') {
+								System.out.println("Vaixell tocat");
+								intents++;
+								enfonsats++;
+							}
+							else {
+								System.out.println("Vaixell enfonsat");
+								intents++;
+								
+							}
+						}
+					}
+					else if(userCol==0) {
+						if(userFil==0) {
+							if(vTauler[userFil+1] [userCol]=='X' || vTauler[userFil] [userCol+1]=='X') {
+								System.out.println("Vaixell tocat");
+								intents++;
+								enfonsats++;
+							}
+							else {
+								System.out.println("Vaixell enfonsat");
+								intents++;
+								
+							}
+						}
+						else if(userFil==9) {
+							if(vTauler[userFil-1] [userCol]=='X' || vTauler[userFil] [userCol+1]=='X') {
+								System.out.println("Vaixell tocat");
+								intents++;
+								enfonsats++;
+							}
+							else {
+								System.out.println("Vaixell enfonsat");
+								intents++;
+								
+							}
+						}
+						else{//si no és a una esquina del tauler
+							if(vTauler[userFil+1] [userCol]=='X' || vTauler[userFil] [userCol+1]=='X' || vTauler[userFil-1] [userCol]=='X') {
+								System.out.println("Vaixell tocat");
+								intents++;
+								enfonsats++;
+							}
+							else {
+								System.out.println("Vaixell enfonsat");
+								intents++;
+								
+							}
+						}
+					}
+					else if(userCol==9) {
+						if(userFil==0) {
+							if(vTauler[userFil+1] [userCol]=='X' || vTauler[userFil] [userCol-1]=='X') {
+								System.out.println("Vaixell tocat");
+								intents++;
+								enfonsats++;
+							}
+							else {
+								System.out.println("Vaixell enfonsat");
+								intents++;
+								
+							}
+						}
+						else if(userFil==9) {
+							if(vTauler[userFil-1] [userCol]=='X' || vTauler[userFil] [userCol-1]=='X') {
+								System.out.println("Vaixell tocat");
+								intents++;
+								enfonsats++;
+							}
+							else {
+								System.out.println("Vaixell enfonsat");
+								intents++;
+								
+							}
+						}
+						else{//si no és a una esquina del tauler
+							if(vTauler[userFil+1] [userCol]=='X' || vTauler[userFil] [userCol-1]=='X' || vTauler[userFil-1] [userCol]=='X') {
+								System.out.println("Vaixell tocat");
+								intents++;
+								enfonsats++;
+							}
+							else {
+								System.out.println("Vaixell enfonsat");
+								intents++;
+								
+							}
+						}
+						
+					}
+					else if(userCol!=9 && userCol!=0 && userFil!=0 && userFil!=9) {//si no es troba a cap límit
+						if(vTauler[userFil+1] [userCol]=='X' || vTauler[userFil] [userCol-1]=='X' || vTauler[userFil-1] [userCol]=='X' || vTauler[userFil] [userCol+1]=='X') {
+							System.out.println("Vaixell tocat");
+							intents++;
+							enfonsats++;
+						}
+						else {
+							System.out.println("Vaixell enfonsat");
+							intents++;
+							
+						}
+					}
+				}
+				else if(vTauler[userFil] [userCol]=='T') {System.out.println("Ja has escollit aquesta posició");}
+				else if(vTauler[userFil] [userCol]!='X') {
+					System.out.println("Aigua");
+					vUsuari[userFil] [userCol]='~';
+					intents++;
+				}
+			}
+			else {System.out.println("Has d'escollir una posició dins del tauler");}
+		}
 		teclat.close();
 	}
-
 }
